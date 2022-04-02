@@ -1,6 +1,9 @@
 <?xml version="1.0" ?>
 
 <launch>
+    <!-- Generate gradient texture -->
+    <node name="Gradient_Generator" pkg="fep_light_tracker" type="generate_gradient.py" output="screen" />
+
     <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="verbose" value="true"/>
