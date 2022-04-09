@@ -4,11 +4,11 @@
     <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="verbose" value="true"/>
-        <arg name="world_name" value="worlds/cool.world"/>
+        <arg name="world_name" value="worlds/v1cool.world"/>
     </include>
     
     <!-- Robot model -->
-    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find fep_light_tracker)/urdf/joebot.xacro'" />
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find v1_fep_light_tracker)/urdf/joebot.xacro'" />
     <arg name="x" default="0"/>
     <arg name="y" default="0"/>
     <arg name="z" default="0.375"/>
@@ -18,7 +18,7 @@
         args="-urdf -param robot_description -model joebot -x $(arg x) -y $(arg y) -z $(arg z)" />
 
     <!-- Load the controllers -->
-    <rosparam command="load" file="$(find fep_light_tracker)/config/joints.yaml" />
+    <rosparam command="load" file="$(find v1_fep_light_tracker)/config/joints.yaml" />
 
     <!-- Controllers -->
     <node name="controller_spawner" pkg="controller_manager" type="spawner"
@@ -29,7 +29,7 @@
     </node>
     
     <!-- AIN Controller -->
-    <node name="AIN_Controller" pkg="fep_light_tracker" type="AIN_Control.py" output="screen" />
+    <node name="AIN_Controller" pkg="v1_fep_light_tracker" type="AIN_Control.py" output="screen" />
     
     <!-- Illuminance Camera -->
     <node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen">

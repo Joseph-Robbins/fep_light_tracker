@@ -19,6 +19,15 @@ def ain_control():
             # print("beep")
             # rospy.spin()
             controller.minimise_f()
+
+            if count == 50000:
+                controller.mu_d = np.pi - np.pi/4
+            
+            if count == 100000:
+                controller.mu_d = 0
+                count = 1
+
+            count += 1
             # input()
 
         else:

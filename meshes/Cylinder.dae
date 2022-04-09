@@ -41,7 +41,7 @@
   </library_effects>
   <library_images>
     <image id="gradient_jpeg" name="gradient_jpeg">
-      <init_from>../textures/gradient.jpeg</init_from>
+      <init_from>gradient.jpeg</init_from>
     </image>
   </library_images>
   <library_materials>
