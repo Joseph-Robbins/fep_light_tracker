@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=authoryear]{biblatex}
+
+
+\usepackage{filecontents}
+\begin{filecontents}{\jobname-primary.bib}
+    @BOOK{hectic,
+    AUTHOR    = {Henry Hectic},
+    TITLE     = {How Horticulturalists Howl},
+    PUBLISHER = {Honorary Books: Henage},
+    YEAR      = {2000}
+}
+\end{filecontents}
+\begin{filecontents}{\jobname-secondary.bib}
+    @BOOK{flutter,
+  AUTHOR    = {Frederick Flutter},
+  TITLE     = {Fraternising with Flowers},
+  PUBLISHER = {Frippery Pamphlets: Folkestone},
+  YEAR      = {1995}
+  keywords = {primary}
+  }
+\end{filecontents}
+
+\addbibresource{\jobname-primary.bib}
+\addbibresource{\jobname-secondary.bib}
+
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \perdatasource{\jobname-primary.bib}
+      \step[fieldset=keywords, fieldvalue={, primary}, append]
+    }
+    \map{
+      \perdatasource{\jobname-secondary.bib}
+      \step[fieldset=keywords, fieldvalue={, secondary}, append]
+    }
+  }
+}
+
+\begin{document}
+Some citations: \cite{hectic}, \cite{flutter}.
+\printbibliography[title=Primary Sources, keyword=primary]
+\printbibliography[title=Secondary Sources, keyword=secondary]
+\end{document}

@@ -17,7 +17,6 @@ class AIC():
         self.g_data_received = False
 
         self.dt = 0.001 # Timestep
-        self.T = 10  # Length of simulation
         self.k_mu = 1 #1.167 # Learning rate of the gradient descent on the belief about our state (mu)
         self.k_u = 70 #70 # Learning rate of action
         self.m = m # Initialise map

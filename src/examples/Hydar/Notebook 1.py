@@ -86,7 +86,7 @@ plt.plot(_x,f(_x), '--');
 dt = 0.005; # integration step, average neuron resets 200 times per second
 T = 5+dt; # maximum time considered
 t = np.arange(0,T,dt)
-N= t.size #Amount of data points
+N = t.size #Amount of data points
 print ('Amount of data points: ', N)
 print ('Starting with', t[0:5])
 print ('Ending with', t[N-5:N])
@@ -113,7 +113,7 @@ def makeNoise(C,s2,t):
         
     # Create the white noise with correct covariance
     N = np.size(t)      # number of elements
-    L =cholesky(C, lower=True)  #Cholesky method
+    L = cholesky(C, lower=True)  #Cholesky method
     w = np.dot(L,np.random.randn(n,N))
     
     if s2 <= 1e-5: # return white noise
@@ -227,24 +227,24 @@ def simulation (v, mu_v, Sigma_w, Sigma_z, noise, a_mu):
     # Construct noise signals with emporal smoothness:
     np.random.seed(42)
     sigma = 1/2000 # smoothness of the noise parameter, variance of the filter
-    w = makeNoise(Sigma_w,sigma,t)
-    z = makeNoise(Sigma_z,sigma,t)
+    w = makeNoise(Sigma_w, sigma, t)
+    z = makeNoise(Sigma_z, sigma, t)
 
     ssim = time.time() # start sim
     
     # Simulation
-    for i in np.arange(1,N):
+    for i in np.arange(1, N):
         # Generative process
         if noise == 'white':
-            x[i] = v + np.random.randn(1)* Sigma_w
-            y[i] = g_gp(x[i],v) + np.random.randn(1)* Sigma_z
+            x[i] = v + np.random.randn(1) * Sigma_w
+            y[i] = g_gp(x[i], v) + np.random.randn(1) * Sigma_z
         elif noise == 'smooth':
-            x[i]= v + w[0,i]
-            y[i] = g_gp(x[i],v) + z[0,i]
-        else: #no noise
-            x[i]= v 
-            y[i] = g_gp(x[i],v)
-        #Active inference
+            x[i] = v + w[0, i]
+            y[i] = g_gp(x[i], v) + z[0, i]
+        else: # no noise
+            x[i] = v 
+            y[i] = g_gp(x[i], v)
+        # Active inference
         F[i], mu_x[i], mu_y[i] = capsule.inference_step(i,mu_v,y[i])
 
     # Print the results

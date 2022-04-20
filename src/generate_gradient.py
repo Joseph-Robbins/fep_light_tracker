@@ -4,10 +4,10 @@ import numpy as np
 import cv2
 
 def make_gradient():
-    # gradient = np.random.permutation(np.arange(0, 255, 15))
-    gradient = np.concatenate((np.arange(0, 256, 1), np.arange(255, -1, -1)))
+    gradient = np.random.permutation(np.arange(0, 255, 15))
+    # gradient = np.concatenate((np.arange(0, 256, 1), np.arange(255, -1, -1)))
     # gradient = np.concatenate((np.arange(255, -1, -1), np.arange(0, 256, 1)))
-    gradient = np.roll(gradient, round(gradient.size/4))
+    # gradient = np.roll(gradient, round(gradient.size/4))
     # gradient = np.arange(255, 0, 2)
     im = np.repeat(gradient, 10)
     im = np.repeat([im], 100, axis=0)
