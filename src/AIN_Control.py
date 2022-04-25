@@ -16,7 +16,7 @@ def ain_control(gradient):
     rate = rospy.Rate(1000)
     while not rospy.is_shutdown():
         # Skip the first cycle so that we only move once we have sensory data, and only cycle once we have data
-        if (count != 0) & (controller.data_received) :
+        if (count != 0) & (controller.data_received) & (controller.g_data_received) :
             # print("beep")
             # rospy.spin()
             controller.minimise_f()

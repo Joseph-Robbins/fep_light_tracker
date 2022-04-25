@@ -40,10 +40,10 @@
 	<transmission name="trans_base_link__link_1">
 		<type>transmission_interface/SimpleTransmission</type>
 		<joint name="base_link__link_1">
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
 		</joint>
 		<actuator name="motor_base_link__link_1">
-			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
 			<mechanicalReduction>1</mechanicalReduction>
 		</actuator>
 	</transmission>
