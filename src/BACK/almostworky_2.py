@@ -29,11 +29,11 @@ class AIC():
 
         ind = np.where(self.m == self.m.max())[0][0]
         self.v = (ind - self.m.size/2) * (np.pi / (self.m.size/2)) # Prior belief of position
-        self.v = np.pi/2 #2*np.pi - 0.1
+        self.v = np.pi #2*np.pi - 0.1
 
-        self.sig_z   = 1 # Variance in state estimation noise
-        self.sig_z_p = 1 # Variance in state estimation noise
-        self.sig_w   = 1 # Variance in sensor estimation noise
+        self.sig_z = 0.001 # Variance in state estimation noise
+        self.sig_z_p = 0.001 # Variance in state estimation noise
+        self.sig_w = 1 # Variance in sensor estimation noise
         self.sig_w_p = 1 # Variance in sensor estimation noise
 
         self.Pi_z = 1/self.sig_z # Precision in state estimation noise
@@ -77,13 +77,12 @@ class AIC():
         # eps_mu = self.mu_xp - self.f_old(self.mu_x)
         # eps_y = 255 - self.y #self.g(self.mu)
         eps_y = self.y - self.g(self.mu)
-        # print(f"y = {self.y:.2f}, g(mu) = {self.g(self.mu):.2f}, mu = {self.mu:.2f}")
+        print(f"y = {self.y:.2f}, g(mu) = {self.g(self.mu):.2f}, mu = {self.mu:.2f}")
         eps_y_p = self.y_p - self.g_p(self.mu_p)
         # print(f"y = {self.y:.2f} ypred = {self.g(self.mu):.2f}, ypredx = {self.g(self.g_truth_x):.2f}")
         # eps_y = (eps_y + np.pi) / 2*np.pi # Normalise eps_y
         eps_mu = self.mu_p - self.f(self.mu)
         eps_mu_p = self.mu_pp - self.f_p(self.mu_p)
-        print(f"eps_y = {eps_y:.2f}, eps_y_p = {eps_y_p:.2f}, eps_mu = {eps_mu:.2f}, eps_mu_p = {eps_mu_p:.2f}")
         # print(f"eps_mu = {eps_mu:.2f}, mu_p = {self.mu_p:.2f}, mu = {self.mu:.2f}")
 
         # Calculate precision-weighted prediction errors
@@ -131,9 +130,9 @@ class AIC():
         # else:
         # self.u = np.sign(eps_y) # self.u * np.sign(eps_y)
 
-        self.du = self.k_u * (zet_y + zet_y_p)
+        self.du = np.sign(eps_y) * self.k_u * (zet_y + zet_y_p)
         self.u = self.u + self.du * self.dt
-        self.u = np.clip(self.u, -1, 1)
+        self.u = np.clip(self.u, -0.5, 0.5)
 
         # self.u = 0.25
 
@@ -150,7 +149,7 @@ class AIC():
         return self.v - x
 
     def f_p(self, x):
-        return -1 #-x #self.f(x)
+        return 0 #-x #self.f(x)
 
     def g(self, x): # Function of sensory mapping (measurement model) - p(y | x)
         noise = self.sig_z * self.rng.standard_normal()

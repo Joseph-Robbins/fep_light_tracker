@@ -29,7 +29,7 @@ class AIC():
 
         ind = np.where(self.m == self.m.max())[0][0]
         self.v = (ind - self.m.size/2) * (np.pi / (self.m.size/2)) # Prior belief of position
-        self.v = np.pi/2 #2*np.pi - 0.1
+        self.v = -np.pi/2 #2*np.pi - 0.1
 
         self.sig_z   = 1 # Variance in state estimation noise
         self.sig_z_p = 1 # Variance in state estimation noise
@@ -131,7 +131,7 @@ class AIC():
         # else:
         # self.u = np.sign(eps_y) # self.u * np.sign(eps_y)
 
-        self.du = self.k_u * (zet_y + zet_y_p)
+        self.du = np.sign(eps_y) * self.k_u * (zet_y + zet_y_p)
         self.u = self.u + self.du * self.dt
         self.u = np.clip(self.u, -1, 1)
 
@@ -150,7 +150,7 @@ class AIC():
         return self.v - x
 
     def f_p(self, x):
-        return -1 #-x #self.f(x)
+        return 0 #-x #self.f(x)
 
     def g(self, x): # Function of sensory mapping (measurement model) - p(y | x)
         noise = self.sig_z * self.rng.standard_normal()

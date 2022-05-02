@@ -2,7 +2,7 @@
 
 <launch>
     <!-- Generate gradient texture -->
-    <node name="Gradient_Generator" pkg="fep_light_tracker" type="generate_gradient.py" output="screen" />
+    <node name="Gradient_Generator" pkg="sensor_fep_light_tracker" type="generate_gradient.py" output="screen" />
 
     <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -11,7 +11,7 @@
     </include>
     
     <!-- Robot model -->
-    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find fep_light_tracker)/urdf/joebot.xacro'" />
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find sensor_fep_light_tracker)/urdf/joebot.xacro'" />
     <arg name="x" default="0"/>
     <arg name="y" default="0"/>
     <arg name="z" default="0.375"/>
@@ -21,7 +21,7 @@
         args="-urdf -param robot_description -model joebot -x $(arg x) -y $(arg y) -z $(arg z)" />
 
     <!-- Load the controllers -->
-    <rosparam command="load" file="$(find fep_light_tracker)/config/joints.yaml" />
+    <rosparam command="load" file="$(find sensor_fep_light_tracker)/config/joints.yaml" />
 
     <!-- Controllers -->
     <node name="controller_spawner" pkg="controller_manager" type="spawner"

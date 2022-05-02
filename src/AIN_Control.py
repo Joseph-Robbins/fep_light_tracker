@@ -4,7 +4,7 @@ import rospy
 import numpy as np
 from sensor_msgs.msg import Illuminance
 from std_msgs.msg import Float64
-from AIC import AIC
+from AIC_no_gcm import AIC
 import cv2
 
 def ain_control(gradient):
@@ -30,7 +30,7 @@ def ain_control(gradient):
 if __name__ == '__main__':
     try:
         print("loading gradient")
-        g = np.load(open("/home/joseph/catkin_ws/src/fep_light_tracker/src/gradient.npy", "rb"))
+        g = np.load(open("/home/joseph/catkin_ws/src/sensor_fep_light_tracker/src/gradient.npy", "rb"))
         print("starting controller")
         ain_control(g)
     except rospy.ROSInterruptException:

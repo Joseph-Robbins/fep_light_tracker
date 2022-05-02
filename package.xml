@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>fep_light_tracker</name>
+  <name>sensor_fep_light_tracker</name>
   <version>0.0.0</version>
   <description>The gazebo_light_sensor_plugin package</description>
 

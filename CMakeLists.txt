@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(fep_light_tracker)
+project(sensor_fep_light_tracker)
 
 find_package(catkin REQUIRED COMPONENTS
   urdf
